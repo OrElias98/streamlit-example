@@ -1,2 +1,4 @@
 altair
 pandas
+stremlit
+streamlit-survey
