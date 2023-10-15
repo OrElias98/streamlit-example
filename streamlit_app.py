@@ -1,8 +1,12 @@
-from collections import namedtuple
-import altair as alt
-import pandas as pd
+import os
+import sys
+
 import streamlit as st
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+from utils import convert_to_rtl, enter, get_grade, write_grades
 
 
 
@@ -10,14 +14,11 @@ import streamlit as st
 # The Best wedding of the year!
 """
 
-import streamlit as st
+host_name = st.selectbox("מי המארחים?", options=["yes", "no", "maybe"])
 
-with st.form("my_form"):
-   st.write("Inside the form")
-   my_number = st.slider('Pick a number', 1, 10)
-   my_color = st.selectbox('Pick a color', ['red','orange','green','blue','violet'])
-   st.form_submit_button('Submit my picks')
-
-# This is outside the form
-st.write(my_number)
-st.write(my_color)
+with st.form("submission"):
+    submitted = st.form_submit_button(label="Submit")
+    if submitted:
+        write_grades(
+            host_name=host_name,
+        )
